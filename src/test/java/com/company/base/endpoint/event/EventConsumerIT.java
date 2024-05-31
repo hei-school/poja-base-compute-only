@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.company.base.PojaGenerated;
 import com.company.base.conf.FacadeIT;
-import com.company.base.endpoint.event.gen.UuidCreated;
+import com.company.base.endpoint.event.consumer.EventConsumer;
+import com.company.base.endpoint.event.consumer.model.ConsumableEvent;
+import com.company.base.endpoint.event.consumer.model.TypedEvent;
+import com.company.base.endpoint.event.model.UuidCreated;
 import com.company.base.repository.DummyUuidRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,9 +31,10 @@ class EventConsumerIT extends FacadeIT {
 
     subject.accept(
         List.of(
-            new EventConsumer.AcknowledgeableTypedEvent(
-                new EventConsumer.TypedEvent(
-                    "com.company.base.endpoint.event.gen.UuidCreated", payloadReceived),
+            new ConsumableEvent(
+                new TypedEvent(
+                    "com.company.base.endpoint.event.model.UuidCreated", payloadReceived),
+                () -> {},
                 () -> {})));
 
     Thread.sleep(2_000);

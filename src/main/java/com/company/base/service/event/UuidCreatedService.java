@@ -1,7 +1,7 @@
 package com.company.base.service.event;
 
 import com.company.base.PojaGenerated;
-import com.company.base.endpoint.event.gen.UuidCreated;
+import com.company.base.endpoint.event.model.UuidCreated;
 import com.company.base.repository.DummyUuidRepository;
 import com.company.base.repository.model.DummyUuid;
 import java.util.function.Consumer;
