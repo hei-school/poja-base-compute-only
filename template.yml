@@ -9,7 +9,6 @@ Globals:
     Tracing: Active
     Architectures:
       - x86_64
-    Timeout: 600
     EventInvokeConfig:
       MaximumRetryAttempts: 0
     AutoPublishAlias: live
@@ -52,6 +51,7 @@ Resources:
     Properties:
       Handler: com.company.base.ApiEventHandler::handleRequest
       MemorySize: 256
+      Timeout: 30
       Role: !Sub '{{resolve:ssm:/poja-base/${Env}/execution/role-arn}}'
       
       Events:
@@ -70,7 +70,8 @@ Resources:
       Handler: com.company.base.MailboxEventHandler::handleRequest
       MemorySize: 512
       Role: !Sub '{{resolve:ssm:/poja-base/${Env}/execution/role-arn}}'
-      
+      Timeout: 600
+
       Events:
         AllEvents:
           Type: SQS
