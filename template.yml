@@ -51,7 +51,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.company.base.ApiEventHandler::handleRequest
-      MemorySize: 2048
+      MemorySize: 256
       Role: !Sub '{{resolve:ssm:/poja-base/${Env}/execution/role-arn}}'
       
       Events:
@@ -62,13 +62,13 @@ Resources:
             Method: ANY
             RestApiId:
               Ref: FrontalServerlessRestApi
-      ReservedConcurrentExecutions: 250
+      ReservedConcurrentExecutions: 50
 
   WorkerFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.company.base.MailboxEventHandler::handleRequest
-      MemorySize: 1024
+      MemorySize: 512
       Role: !Sub '{{resolve:ssm:/poja-base/${Env}/execution/role-arn}}'
       
       Events:
@@ -76,7 +76,7 @@ Resources:
           Type: SQS
           Properties:
             Queue: !Sub '{{resolve:ssm:/poja-base/${Env}/sqs/mailbox-queue-arn}}'
-            BatchSize: 5
+            BatchSize: 1
       ReservedConcurrentExecutions: 50
 
   ApplicationResourceGroup:

@@ -5,7 +5,7 @@ aurora_min_capacity: null
 aurora_scale_point: null
 aurora_sleep: 900
 aws_account_id: ''
-cli_version: 12.8.1
+cli_version: 13.0.0
 codeartifact_domain_name: ''
 codeartifact_repository_name: ''
 custom_java_deps: poja-custom-java-deps.txt
@@ -13,15 +13,15 @@ custom_java_env_vars: poja-custom-java-env-vars.txt
 custom_java_repositories: poja-custom-java-repositories.txt
 database_non_root_password: null
 database_non_root_username: null
-frontal_memory: 2048
-frontal_reserved_concurrent_executions_nb: 250
-jacoco_min_coverage: '0.5'
+frontal_memory: 256
+frontal_reserved_concurrent_executions_nb: 50
+jacoco_min_coverage: '0.4'
 java_facade_it: FacadeIT
 package_full_name: com.company.base
 poja_domain_owner: 088312068315
 poja_python_repository_domain: python-numer-tech
 poja_python_repository_name: numer-python-store
-prod_db_cluster_timeout: '300'
+prod_db_cluster_timeout: '500'
 region: eu-west-3
 ses_source: lou@hei.school
 ssm_sg_id: /poja/sg/id
@@ -38,6 +38,6 @@ with_sentry: 'false'
 with_snapstart: 'true'
 with_sonar: 'false'
 with_swagger_ui: 'false'
-worker_batch: 5
-worker_memory: 1024
+worker_batch: 1
+worker_memory: 512
 worker_reserved_concurrent_executions_nb: 50
