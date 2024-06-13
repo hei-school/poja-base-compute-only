@@ -43,6 +43,7 @@ public class ConsumableEventTyper implements Function<List<SQSMessage>, List<Con
         continue;
       }
       String sqsQueueUrl = typedEvent.payload().getEventStack().getSqsQueueUrl();
+      log.info("Event got from SQS: {}", sqsQueueUrl); // TODO: to revert
       ConsumableEvent consumableEvent =
           new ConsumableEvent(
               typedEvent, acknowledger(message, sqsQueueUrl), failer(message, sqsQueueUrl));
