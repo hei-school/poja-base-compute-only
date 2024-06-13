@@ -12,22 +12,22 @@ import lombok.ToString;
 
 @PojaGenerated
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Builder
 @ToString
+@AllArgsConstructor
 public class UuidCreated extends PojaEvent {
   @JsonProperty("uuid")
   private String uuid;
 
   @Override
-  public Duration maxDuration() {
+  public Duration maxConsumerDuration() {
     return Duration.ofSeconds(10);
   }
 
   @Override
-  public Duration maxBackoffBetweenRetries() {
+  public Duration maxConsumerBackoffBetweenRetries() {
     return Duration.ofSeconds(30);
   }
 }
