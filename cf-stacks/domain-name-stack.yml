@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: poja-base-compute-only - Domain name
+Description: poja-compute-only - Domain name
 
 Parameters:
   DomainName:

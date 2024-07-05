@@ -1,4 +1,4 @@
-app_name: poja-base-compute-only
+app_name: poja-compute-only
 aurora_auto_pause: 'false'
 aurora_max_capacity: null
 aurora_min_capacity: null
@@ -18,7 +18,7 @@ frontal_memory: 256
 frontal_reserved_concurrent_executions_nb: 50
 jacoco_min_coverage: '0.4'
 java_facade_it: FacadeIT
-package_full_name: com.company.base
+package_full_name: poja.compute.only
 poja_domain_owner: 088312068315
 poja_python_repository_domain: python-numer-tech
 poja_python_repository_name: numer-python-store

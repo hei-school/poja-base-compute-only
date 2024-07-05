@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: poja-base-compute-only - Compute permission
+Description: poja-compute-only - Compute permission
 
 Parameters:
   Env:
@@ -9,7 +9,7 @@ Resources:
   ExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Join [ '', [ poja-base-compute-only-, !Ref Env, -ExecutionRole ] ]
+      RoleName: !Join [ '', [ poja-compute-only-, !Ref Env, -ExecutionRole ] ]
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -22,6 +22,6 @@ Resources:
   ExecutionRoleArnSSM:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: !Join [ '',[ /poja-base-compute-only/ , !Ref Env , /execution/role-arn ] ]
+      Name: !Join [ '',[ /poja-compute-only/ , !Ref Env , /execution/role-arn ] ]
       Type: String
       Value: !GetAtt ExecutionRole.Arn
