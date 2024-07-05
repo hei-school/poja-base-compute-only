@@ -48,7 +48,7 @@ Resources:
   FrontalFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: poja.compute.only.ApiEventHandler::handleRequest
+      Handler: com.company.base.ApiEventHandler::handleRequest
       MemorySize: 256
       Timeout: 30
       Role: !Sub '{{resolve:ssm:/poja-compute-only/${Env}/execution/role-arn}}'
@@ -66,7 +66,7 @@ Resources:
   WorkerFunction1:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: poja.compute.only.MailboxEventHandler::handleRequest
+      Handler: com.company.base.MailboxEventHandler::handleRequest
       MemorySize: 512
       Timeout: 300 #note(sqs-visibility)
       Role: !Sub '{{resolve:ssm:/poja-compute-only/${Env}/execution/role-arn}}'
@@ -82,7 +82,7 @@ Resources:
   WorkerFunction2:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: poja.compute.only.MailboxEventHandler::handleRequest
+      Handler: com.company.base.MailboxEventHandler::handleRequest
       MemorySize: 512
       Timeout: 300 #note(sqs-visibility)
       Role: !Sub '{{resolve:ssm:/poja-compute-only/${Env}/execution/role-arn}}'

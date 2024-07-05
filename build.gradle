@@ -25,7 +25,7 @@ repositories {
 }
 
 java {
-    group = 'poja.compute.only'
+    group = 'com.company.base'
     sourceCompatibility = '21'
     targetCompatibility = '21'
 }
