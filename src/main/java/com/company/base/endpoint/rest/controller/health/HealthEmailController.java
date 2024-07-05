@@ -4,6 +4,9 @@ import static com.company.base.endpoint.rest.controller.health.PingController.OK
 import static java.io.File.createTempFile;
 
 import com.company.base.PojaGenerated;
+import com.company.base.endpoint.event.EventProducer;
+import com.company.base.endpoint.event.model.SendEmailTriggered;
+import com.company.base.endpoint.rest.model.SendEmails;
 import com.company.base.mail.Email;
 import com.company.base.mail.Mailer;
 import jakarta.mail.internet.AddressException;
@@ -13,6 +16,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthEmailController {
 
   Mailer mailer;
+  private final EventProducer eventProducer;
 
   @GetMapping(value = "/health/email")
   public ResponseEntity<String> send_emails(@RequestParam String to)
@@ -74,6 +80,15 @@ public class HealthEmailController {
             "[poja health check 5/5] With attachment",
             null,
             List.of(createTempFile("attachment", ".txt"))));
+    return OK;
+  }
+
+  @PostMapping("/async/email")
+  public ResponseEntity<String> sendEmailAsynchronously(@RequestBody SendEmails toSend) {
+    eventProducer.accept(
+        List.of(
+            new SendEmailTriggered(
+                toSend.getRecipients(), toSend.getMessage(), toSend.getObject())));
     return OK;
   }
 }

@@ -1,7 +1,6 @@
 package com.company.base;
 
 import static com.company.base.concurrency.ThreadRenamer.renameWorkerThread;
-import static java.lang.Runtime.getRuntime;
 import static java.lang.System.getenv;
 import static java.lang.Thread.currentThread;
 
@@ -14,7 +13,6 @@ import com.company.base.endpoint.event.EventConf;
 import com.company.base.endpoint.event.consumer.EventConsumer;
 import com.company.base.endpoint.event.consumer.model.ConsumableEvent;
 import com.company.base.endpoint.event.consumer.model.ConsumableEventTyper;
-import com.zaxxer.hikari.HikariDataSource;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -42,32 +40,14 @@ public class MailboxEventHandler implements RequestHandler<SQSEvent, String> {
     log.info("SQS messages: {}", messages);
 
     var applicationContext = applicationContext();
-    getRuntime()
-        .addShutdownHook(
-            // in case, say, the execution timed out
-            // TODO: no, we have no control over when AWS shuts the JVM down
-            //   Best is to regularly check whether we are nearing end of allowedTime,
-            //   in which case we close resources before timing out.
-            //   Frontal functions might have the same issue also.
-            new Thread(() -> onHandled(applicationContext)));
 
     var eventConsumer = applicationContext.getBean(EventConsumer.class);
     var messageConverter = applicationContext.getBean(ConsumableEventTyper.class);
 
     eventConsumer.accept(messageConverter.apply(messages));
-
-    onHandled(applicationContext);
+    log.info("EventConsumer.accept done, closing application context");
+    applicationContext.close();
     return "ok";
-  }
-
-  private void onHandled(ConfigurableApplicationContext applicationContext) {
-    try {
-      var hikariDatasource = applicationContext.getBean(HikariDataSource.class);
-      hikariDatasource.close();
-
-      applicationContext.close();
-    } catch (Exception ignored) {
-    }
   }
 
   private ConfigurableApplicationContext applicationContext(String... args) {
