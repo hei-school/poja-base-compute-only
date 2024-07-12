@@ -50,3 +50,4 @@ jobs:
 
       - name: Deploy application
         run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ github.ref_name }}-compute-poja-compute-only --capabilities CAPABILITY_IAM --parameter-overrides Env=${{ github.ref_name }} --resolve-s3 --tags app=poja-compute-only env=${{ github.ref_name }} user:poja=poja-compute-only
+

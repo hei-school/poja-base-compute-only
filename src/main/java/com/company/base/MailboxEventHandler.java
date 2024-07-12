@@ -45,16 +45,13 @@ public class MailboxEventHandler implements RequestHandler<SQSEvent, String> {
     var messageConverter = applicationContext.getBean(ConsumableEventTyper.class);
 
     eventConsumer.accept(messageConverter.apply(messages));
-    log.info("EventConsumer.accept done, closing application context");
     applicationContext.close();
     return "ok";
   }
 
   private ConfigurableApplicationContext applicationContext(String... args) {
     SpringApplication application = new SpringApplication(PojaApplication.class);
-    application.setDefaultProperties(
-        Map.of(
-            "spring.flyway.enabled", "false", "server.port", SPRING_SERVER_PORT_FOR_RANDOM_VALUE));
+    application.setDefaultProperties(Map.of("server.port", SPRING_SERVER_PORT_FOR_RANDOM_VALUE));
     application.setAdditionalProfiles("worker");
     return application.run(args);
   }
