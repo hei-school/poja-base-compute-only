@@ -8,7 +8,7 @@ Globals:
     Runtime: java21
     Tracing: Active
     Architectures:
-      - x86_64
+      - arm64
     EventInvokeConfig:
       MaximumRetryAttempts: 0
     AutoPublishAlias: live
@@ -23,6 +23,7 @@ Globals:
     Environment:
       Variables:
         ENV: !Ref Env
+        AWS_S3_BUCKET: !Sub '{{resolve:ssm:/poja-compute-only/${Env}/s3/bucket-name}}'
         AWS_SES_SOURCE: noreply@nowhere.com
         
         
